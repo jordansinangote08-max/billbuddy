@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BillBuddy</title>
-  <meta name="theme-color" content="#111827">
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -12,84 +11,64 @@
     <header class="topbar">
       <div>
         <div class="eyebrow">BILLBUDDY</div>
-        <h1>Upcoming payments</h1>
-        <p class="subtitle">Your next bills, sorted by due date.</p>
+        <h1 id="pageTitle">Upcoming payments</h1>
+        <p class="subtitle" id="pageSubtitle">Your next bills, sorted by due date.</p>
       </div>
-
-      <div class="top-actions">
-        <button id="refreshButton" class="button secondary" type="button">
-          Refresh
-        </button>
-      </div>
+      <button id="refreshButton" class="button" type="button">Refresh</button>
     </header>
 
+    <nav class="tabs">
+      <button class="tab active" data-page="payments">Payments</button>
+      <button class="tab" data-page="limits">Credit Limits</button>
+    </nav>
+
     <main>
-      <section class="summary-grid" aria-label="Bill summary">
-        <article class="summary-card featured">
-          <span class="summary-label">Upcoming total</span>
-          <strong id="totalAmount">₱0.00</strong>
-          <span id="totalCaption" class="summary-caption">Loading bills…</span>
-        </article>
+      <section id="paymentsPage" class="page active">
+        <section class="summary-grid">
+          <article class="summary-card featured">
+            <span>Upcoming total</span>
+            <strong id="totalAmount">₱0.00</strong>
+            <small id="totalCaption">Loading…</small>
+          </article>
+          <article class="summary-card">
+            <span>Upcoming bills</span>
+            <strong id="billCount">0</strong>
+            <small>Processed & unique</small>
+          </article>
+          <article class="summary-card">
+            <span>Next due</span>
+            <strong id="nextDue">—</strong>
+            <small id="nextDueCaption">No due date yet</small>
+          </article>
+        </section>
 
-        <article class="summary-card">
-          <span class="summary-label">Upcoming bills</span>
-          <strong id="billCount">0</strong>
-          <span class="summary-caption">Processed & unique</span>
-        </article>
-
-        <article class="summary-card">
-          <span class="summary-label">Next due</span>
-          <strong id="nextDue">—</strong>
-          <span id="nextDueCaption" class="summary-caption">No due date yet</span>
-        </article>
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <div class="section-kicker">PAYMENTS</div>
+              <h2>What’s coming up</h2>
+            </div>
+            <span id="lastUpdated"></span>
+          </div>
+          <div id="statusBox" class="status-box hidden"></div>
+          <div id="billGrid" class="bill-grid"></div>
+        </section>
       </section>
 
-      <section class="section">
-        <div class="section-heading">
-          <div>
-            <span class="section-kicker">PAYMENTS</span>
-            <h2>What’s coming up</h2>
+      <section id="limitsPage" class="page">
+        <section class="section limits-section">
+          <div class="section-heading">
+            <div>
+              <div class="section-kicker">CREDIT CARDS</div>
+              <h2>Credit limits</h2>
+              <p class="section-note">Set each card’s limit. BillBuddy uses a 20% utilization target by default.</p>
+            </div>
           </div>
-          <span id="lastUpdated" class="last-updated"></span>
-        </div>
-
-        <div id="statusBox" class="status-box hidden" role="status"></div>
-        <div id="billGrid" class="bill-grid"></div>
-      </section>
-
-      <section class="section details-section">
-        <div class="section-heading">
-          <div>
-            <span class="section-kicker">DETAILS</span>
-            <h2>Upcoming bills</h2>
-          </div>
-        </div>
-
-        <div class="table-card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Bank / Lender</th>
-                  <th>Product</th>
-                  <th>Amount</th>
-                  <th>Due date</th>
-                  <th>Statement date</th>
-                </tr>
-              </thead>
-              <tbody id="billTableBody"></tbody>
-            </table>
-          </div>
-          <div id="emptyTable" class="empty-state hidden">
-            No upcoming bills.
-          </div>
-        </div>
+          <div id="limitsStatus" class="status-box hidden"></div>
+          <div id="creditLimitGrid" class="limit-grid"></div>
+        </section>
       </section>
     </main>
-
-    <footer>
-      BillBuddy · Powered by your automated bill tracker
-    </footer>
   </div>
 
   <script src="/static/app.js"></script>
